@@ -1,25 +1,81 @@
 var style = getComputedStyle(document.body)
-var interacted = false
+var playing = false
+var firstclick = false
+
+function audio() {
+    if (playing === false) {
+        document.getElementById("audio").play();
+        playing = true;
+    }
+    else {
+        document.getElementById("audio").pause();
+        playing = false;
+    }
+}
 
 buttontext = document.getElementById("play-text")
+buttondiv = document.getElementById("play-div")
+
+async function wait(time) {
+    // await setTimeout(() => {}, time * 1000)
+    await new Promise(resolve => setTimeout(resolve, time * 1000))
+}
+async function play() {
+    audio()
+    if (firstclick === false) {
+        buttontext.classList.add("played")
+        button.classList.add("firstclick")
+        firstclick = true
+        await wait(1)
+    }
+    button = document.getElementById("play-button")
+    img = document.createElement("img");
+    img.id = "pause-button"
+    img.style.width = "64px"
+    img.style.height = "54px"
+    img.style["margin-top"] = "-30px"
+    img.src = "assets/media/pause.jpg"
+    img.addEventListener("click", function() {
+        pause()
+    })
+    button.classList.add("played")
+    // await wait(1)
+    img.classList.add("start")
+    buttondiv.appendChild(img)
+    buttondiv.removeChild(button)
+}
+
+async function pause() {
+    audio()
+    var button = document.getElementById("pause-button")
+    img = document.createElement("img");
+    img.id = "play-button"
+    img.style.width = "64px"
+    img.style.height = "64px"
+    img.style["margin-top"] = "-30px"
+    img.src = "assets/media/play.png"
+    img.addEventListener("click", function() {
+        play()
+    })
+    button.classList.add("played")
+    // await wait(1)
+    img.classList.add("start")
+    buttondiv.appendChild(img)
+    buttondiv.removeChild(button)
+}
 button = document.getElementById("play-button")
 button.addEventListener('click', function() {
-    if (interacted === false) {
-        document.getElementById("audio").play();
-        interacted = true;
-    }
-    buttontext.classList.add("played")
-    button.classList.add("played")
+    button.classList.add("firstclick")
+    play()
 })
 
 document.addEventListener("scroll", function(){
-    console.log(interacted)
     var scrollTop = document.documentElement.scrollTop
     var torus = document.getElementById("torus")
     var water = document.getElementById("water")
     var float = document.getElementById("float")
     var explode = document.getElementById("explode")
-    // console.log(scrollTop)
+    console.log(scrollTop)
     console.log(explode.style.opacity)
     console.log(torus.style.opacity)
     console.log(water.style.opacity)

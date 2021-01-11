@@ -68,31 +68,34 @@ body {
     font-family: "Fira Code";
     color: rgb(182, 85, 85);
     font-size: 35px;
+    margin-left: 60px;
 }
 
 #play-text {
     margin-top: 10px;
+    margin-left: 60px;
     font-family: "Fira Code";
     font-size: 20px;
     color: black;
 }
 
-#play-button {
+#play-button, #pause-button {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 60px;
     margin-top: 10px;
     margin-bottom: 250px;
 }
 
-#play-button:hover {
-    margin-left: 9px;
-    margin-top: 7px;
-    width: 70px;
-    height: 70px;
+#pause-button:active， #play-button:active {
+    animation: fadeout 1s forwards;
 }
 
 .played {
     animation: fadeout 1s forwards;
+}
+
+.start {
+    animation: fadeout 0.5s reverse backwards;
 }
 
 @keyframes fadeout {
@@ -105,9 +108,15 @@ body {
 }
 
 #down-arrow {
-    margin-left: -65px;
+    margin-top: calc(32em - 32px);
+    display: inline-block;
+    position: absolute;
     animation: movement 0.5s infinite alternate;
     -webkit-animation: movement 0.5s infinite alternate;
+}
+
+.firstclick {
+    animation: margin-movement 1s forwards, fadeout 1s forwards;
 }
 
 @keyframes movement {
@@ -116,6 +125,15 @@ body {
     }
     100% {
         top: 10px;
+    }
+}
+
+@keyframes margin-movement {
+    0% {
+        margin-top: 10px;
+    }
+    100% {
+        margin-top: -30px;
     }
 }
 
